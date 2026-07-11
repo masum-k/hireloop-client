@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card } from "@heroui/react";
 import { Briefcase, Factory, Magnifier, Star } from "@gravity-ui/icons";
 
@@ -32,14 +33,23 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="relative isolate w-full bg-black text-white pt-24 pb-20 px-6 overflow-hidden flex flex-col items-center">
+    <section className="relative isolate w-full bg-black text-white pt-12 pb-20 px-6 overflow-hidden flex flex-col items-center">
       
-      {/* Atmosphere / Planetary Radial Horizon Simulation */}
-      <div className="absolute top-[15%] left-1/2 -z-10 h-125 w-212.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-600/25 blur-[120px]" />
-      <div className="absolute top-[5%] left-1/2 -z-10 h-300 w-[1800px] -translate-x-1/2 rounded-full bg-linear-to-b from-indigo-950/30 via-zinc-950/95 to-black border-t border-indigo-500/15 shadow-[0_-25px_60px_rgba(99,102,241,0.1)] opacity-90" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-white/2 via-transparent to-transparent opacity-50 pointer-events-none -z-10" />
+      {/* --- Cosmic Globe Backdrop Module for Stats --- */}
+      <div className="absolute top-[-40%] left-1/2 -z-10 h-200 w-350 -translate-x-1/2 pointer-events-none select-none">
+        <Image
+          src="/images/globe.png"
+          alt="Global network visualization map background"
+          fill
+          priority
+          sizes="(max-w-1450px) 100vw, 1400px"
+          className="object-contain object-top opacity-90"
+        />
+        {/* Deep planet outline glow ring effect overlay */}
+        <div className="absolute inset-0  blur-[130px] rounded-full mix-blend-screen -z-10" />
+      </div>
 
-      {/* Primary Display Layout */}
+      {/* --- Content Module --- */}
       <div className="mx-auto max-w-6xl w-full text-center flex flex-col items-center relative z-10">
         
         {/* Sub-Section Headline Statement */}
@@ -53,9 +63,8 @@ export default function StatsSection() {
           {stats.map((stat) => (
             <Card 
               key={stat.id}
-              className="bg-zinc-950/60 border border-white/5 shadow-2xl backdrop-blur-md rounded-2xl transition-all duration-300 hover:border-white/10 hover:-translate-y-0.5"
+              className="bg-zinc-950/70 border border-white/5 shadow-2xl backdrop-blur-md rounded-2xl transition-all duration-300 hover:border-white/10 hover:-translate-y-0.5"
             >
-              {/* Internal container replaces removed CardBody helper utility classes */}
               <div className="p-6 flex flex-col items-start text-left justify-between h-44 w-full">
                 {/* Embedded Icon Shell */}
                 <div className="p-2 bg-white/1 border border-white/5 rounded-lg flex items-center justify-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button, Chip } from "@heroui/react";
 import { Magnifier, Briefcase, Pin } from "@gravity-ui/icons";
 
@@ -8,10 +9,22 @@ export default function HeroSection() {
 
   return (
     <section className="relative isolate flex flex-col items-center justify-center bg-black px-4 pt-24 pb-12 text-center overflow-hidden">
-      {/* Background soft glow */}
-      <div className="absolute top-1/3 left-1/2 -z-10 h-87.5 w-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/5 blur-[100px]" />
+      
+      {/* --- Cosmic Globe Backdrop Module for Hero --- */}
+      <div className="absolute top-[45%] left-1/2 -z-10 h-200 w-350 -translate-x-1/2 pointer-events-none select-none">
+        <Image
+          src="/images/globe.png"
+          alt="Global network visualization map background"
+          fill
+          priority
+          sizes="(max-w-1450px) 100vw, 1400px"
+          className="object-contain object-top opacity-60 mix-blend-screen"
+        />
+        {/* Soft atmospheric indigo glow coming from the top hemisphere of the planet */}
+        <div className="absolute top-0 left-1/2 h-100 w-150 -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px] -z-10" />
+      </div>
 
-      <div className="mx-auto max-w-4xl flex flex-col items-center gap-6">
+      <div className="mx-auto max-w-4xl flex flex-col items-center gap-6 relative z-10">
         {/* Top Floating Badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-zinc-900/40 px-4 py-1.5 backdrop-blur-md shadow-sm">
           <Briefcase className="text-amber-500 text-sm" />
