@@ -1,91 +1,97 @@
 "use client";
 
-import Image from "next/image";
-import { Card } from "@heroui/react";
-import { Briefcase, Factory, Magnifier, Star } from "@gravity-ui/icons";
-
+import {
+    Briefcase,
+    Factory,
+    Magnifier,
+    Star,
+} from "@gravity-ui/icons";
+// import { motion } from "motion/react"
 export default function StatsSection() {
-  const stats = [
-    {
-      id: 1,
-      icon: <Briefcase className="text-neutral-400 text-lg" />,
-      value: "50K",
-      label: "Active Jobs",
-    },
-    {
-      id: 2,
-      icon: <Factory className="text-neutral-400 text-lg" />,
-      value: "12K",
-      label: "Companies",
-    },
-    {
-      id: 3,
-      icon: <Magnifier className="text-neutral-400 text-lg" />,
-      value: "2M",
-      label: "Job Seekers",
-    },
-    {
-      id: 4,
-      icon: <Star className="text-neutral-400 text-lg" />,
-      value: "97%",
-      label: "Satisfaction Rate",
-    },
-  ];
+    const stats = [
+        {
+            id: 1,
+            icon: <Briefcase className="h-5 w-5" />,
+            value: "50K",
+            label: "Active Jobs",
+        },
+        {
+            id: 2,
+            icon: <Factory className="h-5 w-5" />,
+            value: "12K",
+            label: "Companies",
+        },
+        {
+            id: 3,
+            icon: <Magnifier className="h-5 w-5" />,
+            value: "2M",
+            label: "Job Seekers",
+        },
+        {
+            id: 4,
+            icon: <Star className="h-5 w-5" />,
+            value: "97%",
+            label: "Satisfaction Rate",
+        },
+    ];
 
-  return (
-    <section className="relative isolate w-full bg-black text-white pt-12 pb-20 px-6 overflow-hidden flex flex-col items-center">
-      
-      {/* --- Cosmic Globe Backdrop Module for Stats --- */}
-      <div className="absolute top-[-40%] left-1/2 -z-10 h-200 w-350 -translate-x-1/2 pointer-events-none select-none">
-        <Image
-          src="/images/globe.png"
-          alt="Global network visualization map background"
-          fill
-          priority
-          sizes="(max-w-1450px) 100vw, 1400px"
-          className="object-contain object-top opacity-90"
-        />
-        {/* Deep planet outline glow ring effect overlay */}
-        <div className="absolute inset-0  blur-[130px] rounded-full mix-blend-screen -z-10" />
-      </div>
+    return (
+        <section className="relative overflow-hidden bg-black py-28 text-white">
+            {/* Background Globe */}
+            <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-90"
+                style={{
+                    backgroundImage: "url('/images/globe.png')",
+                }}
+            />
 
-      {/* --- Content Module --- */}
-      <div className="mx-auto max-w-6xl w-full text-center flex flex-col items-center relative z-10">
-        
-        {/* Sub-Section Headline Statement */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-300 max-w-2xl leading-snug">
-          Assisting over <span className="text-white font-semibold">15,000 job seekers</span> <br />
-          find their dream positions.
-        </h2>
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/40" />
 
-        {/* Statistics Grid Matrix */}
-        <div className="mt-20 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((stat) => (
-            <Card 
-              key={stat.id}
-              className="bg-zinc-950/70 border border-white/5 shadow-2xl backdrop-blur-md rounded-2xl transition-all duration-300 hover:border-white/10 hover:-translate-y-0.5"
-            >
-              <div className="p-6 flex flex-col items-start text-left justify-between h-44 w-full">
-                {/* Embedded Icon Shell */}
-                <div className="p-2 bg-white/1 border border-white/5 rounded-lg flex items-center justify-center">
-                  {stat.icon}
+            {/* Glow Effect */}
+            <div className="absolute left-1/2 top-[25%] h-100 w-100 -translate-x-1/2 rounded-full bg-violet-600/30 blur-[140px]" />
+
+            {/* Content */}
+            <div className="relative z-10 mx-auto max-w-7xl px-6">
+                {/* Heading */}
+                <div className="mx-auto max-w-3xl text-center">
+                    <h2 className="text-2xl font-medium leading-relaxed text-white/90">
+                        Assisting over 15,000 job seekers
+                        <br />
+                        find their dream positions.
+                    </h2>
+                    {/* <motion.p animate={{ rotate: -45 }}>Remote Jobs</motion.p>
+                    <motion.p initial={{ scale: 0 }} animate={{ scale: 1 }}>On-site Jobs</motion.p> */}
                 </div>
-                
-                {/* Dynamic Counter Layout */}
-                <div className="mt-4 flex flex-col gap-1">
-                  <span className="text-4xl font-bold tracking-tight text-white font-sans">
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-neutral-500 font-medium tracking-wide">
-                    {stat.label}
-                  </span>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
 
-      </div>
-    </section>
-  );
+                {/* Stats Cards */}
+                <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    {stats.map((stat) => (
+                        <div
+                            key={stat.id}
+                            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/3 p-8 backdrop-blur-xl transition duration-300 hover:border-violet-500/30"
+                        >
+                            {/* Card Glow */}
+                            <div className="absolute bottom-0 right-0 h-32 w-32 rounded-full bg-white/10 blur-3xl transition duration-300 group-hover:bg-violet-500/20" />
+
+                            {/* Icon */}
+                            <div className="relative z-10 text-white/90">
+                                {stat.icon}
+                            </div>
+
+                            {/* Number */}
+                            <h3 className="relative z-10 mt-10 text-5xl font-bold tracking-tight">
+                                {stat.value}
+                            </h3>
+
+                            {/* Label */}
+                            <p className="relative z-10 mt-4 text-base text-gray-300">
+                                {stat.label}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 }

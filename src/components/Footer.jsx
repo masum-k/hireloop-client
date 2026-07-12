@@ -32,7 +32,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full bg-[#000000] text-neutral-400 py-16 px-6 md:px-12 border-t border-white/5 mt-20">
+    <footer className="w-full bg-[#000000] text-neutral-400 py-16 px-6 md:px-12 border-t border-white/5">
       <div className="mx-auto max-w-7xl">
         {/* Main Footer Layout Container */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-4 pb-12">
