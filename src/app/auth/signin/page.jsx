@@ -3,13 +3,10 @@
 import React, { useState } from "react";
 import { Card, TextField, Label, InputGroup, Button, Link } from "@heroui/react";
 // Gravity UI Icons
-import { Person, At, ShieldKeyhole, Eye, EyeClosed } from "@gravity-ui/icons";
-import { signUp } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { At, ShieldKeyhole, Eye, EyeClosed } from "@gravity-ui/icons";
+import { signIn } from "@/lib/auth-client";
 
-export default function SignUpPage() {
-    const router = useRouter();
-    const [name, setName] = useState("");
+export default function SignInPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
@@ -20,29 +17,25 @@ export default function SignUpPage() {
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleSignUp = async (e) => {
+    const handleSignIn = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setErrorMessage("");
         setSuccessMessage("");
 
         try {
-            const { data, error } = await signUp.email({
+            const { data, error } = await signIn.email({
                 email,
                 password,
-                name,
-                // callbackURL: "/dashboard",
+                callbackURL: "/",
             });
 
             if (error) {
-                setErrorMessage(error.message || "Something went wrong. Please try again.");
+                setErrorMessage(error.message || "Invalid email or password.");
             } else {
-                setSuccessMessage("Account created successfully! Redirecting...");
-                setName("");
+                setSuccessMessage("Signed in successfully! Redirecting...");
                 setEmail("");
                 setPassword("");
-                
-                router.push("/auth/signin"); 
             }
         } catch (err) {
             setErrorMessage("An unexpected network error occurred.");
@@ -58,33 +51,15 @@ export default function SignUpPage() {
                 {/* Header */}
                 <div className="flex flex-col items-center gap-1 text-center">
                     <h1 className="text-2xl font-semibold tracking-wide text-slate-100">
-                        Create an account
+                        Welcome back
                     </h1>
                     <p className="text-sm text-slate-400">
-                        Fill in the fields below to get started
+                        Fill in your details to access your account
                     </p>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSignUp} className="flex flex-col gap-5">
-
-                    {/* Name Input */}
-                    <TextField name="name" fullWidth>
-                        <Label className="text-sm font-medium text-slate-300 mb-1.5 block">Name*</Label>
-                        <InputGroup className="border border-slate-700 bg-[#1b2a41] rounded-xl h-12 px-3 flex items-center gap-2 focus-within:border-blue-500 transition-colors">
-                            <InputGroup.Prefix>
-                                <Person className="text-slate-400 text-lg shrink-0" />
-                            </InputGroup.Prefix>
-                            <InputGroup.Input
-                                type="text"
-                                placeholder="Enter your full name"
-                                className="w-full bg-transparent text-slate-200 placeholder:text-slate-500 focus:outline-none h-full pl-1"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                            />
-                        </InputGroup>
-                    </TextField>
+                <form onSubmit={handleSignIn} className="flex flex-col gap-5">
 
                     {/* Email Input */}
                     <TextField name="email" fullWidth>
@@ -113,7 +88,7 @@ export default function SignUpPage() {
                             </InputGroup.Prefix>
                             <InputGroup.Input
                                 type={isVisible ? "text" : "password"}
-                                placeholder="Choose a password"
+                                placeholder="Enter your password"
                                 className="w-full bg-transparent text-slate-200 placeholder:text-slate-500 focus:outline-none h-full pl-1"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -151,15 +126,15 @@ export default function SignUpPage() {
                         className="w-full bg-[#1b86f6] hover:bg-blue-600 text-white font-medium h-12 rounded-xl text-md shadow-md shadow-blue-500/10 mt-2"
                         isLoading={isLoading}
                     >
-                        Sign Up
+                        Sign In
                     </Button>
                 </form>
 
                 {/* Bottom Redirect Link */}
                 <div className="mt-4 text-center text-sm text-slate-400">
-                    Already have an account?{" "}
-                    <Link href="/auth/signin" className="font-medium text-[#2d93ff] hover:underline underline-offset-4">
-                        Sign in instead
+                    Don&apos;t have an account?{" "}
+                    <Link href="/auth/signup" className="font-medium text-[#2d93ff] hover:underline underline-offset-4">
+                        Sign up instead
                     </Link>
                 </div>
 

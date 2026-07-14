@@ -3,11 +3,22 @@
 import { useState } from "react";
 import { Link, Button } from "@heroui/react";
 import { LogoLinkedin, Bars, Xmark } from "@gravity-ui/icons";
+import { signOut, useSession } from "@/lib/auth-client";
+
 
 export default function Navbar() {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Unified navigation configuration
+  const { data: session, isPending } = useSession()
+  console.log(session)
+
+  const user = session?.user;
+
+  const handleSingOut = async () => {
+    await signOut();
+  }
+
   const navLinks = [
     { label: "Find Jobs", href: "/jobs" },
     { label: "Post a Job", href: "/recruiter/post-job" },
@@ -20,7 +31,7 @@ export default function Navbar() {
       {/* Floating Dark Capsule Container */}
       <nav className="mx-auto max-w-7xl rounded-2xl border border-white/5 bg-[#18181b]/80 shadow-2xl backdrop-blur-xl">
         <header className="flex h-16 items-center justify-between px-6">
-          
+
           {/* Left Side: Brand/Logo using a Gravity Icon */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 font-bold hover:opacity-100">
@@ -50,18 +61,25 @@ export default function Navbar() {
 
             {/* Fine vertical separator line */}
             <div className="h-4 w-px bg-neutral-800" />
-            
+
             {/* Desktop Action Buttons */}
             <div className="flex items-center gap-6">
-              <Link href="/login" className="text-sm font-medium text-[#7828C8] transition-colors hover:text-[#9353D3]">
-                Sign In
-              </Link>
-              
-              <Button 
-                as={Link} 
-                href="/register" 
-                radius="lg" 
-                variant="solid" 
+              {
+                user
+                  ? <>
+                    Hi, {user?.name}
+                    <Button onClick={handleSingOut} variant="ghost">Sign Out</Button>
+                  </>
+                  : <Link href="/auth/signin" className="text-sm font-medium text-[#7828C8] transition-colors hover:text-[#9353D3]">
+                    Sign In
+                  </Link>
+
+              }
+              <Button
+                as={Link}
+                href="/register"
+                radius="lg"
+                variant="solid"
                 className="bg-linear-to-r from-[#6366f1] to-[#4f46e5] font-semibold text-white shadow-lg shadow-indigo-500/20 hover:opacity-90 px-5"
               >
                 Get Started
