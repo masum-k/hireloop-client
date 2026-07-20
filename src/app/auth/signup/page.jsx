@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Card, TextField, Label, InputGroup, Button, Link } from "@heroui/react";
+import { Description, Radio, RadioGroup } from "@heroui/react";
 // Gravity UI Icons
 import { Person, At, ShieldKeyhole, Eye, EyeClosed } from "@gravity-ui/icons";
 import { signUp } from "@/lib/auth-client";
@@ -13,6 +14,7 @@ export default function SignUpPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isVisible, setIsVisible] = useState(false);
+    const [role, setRole] = useState("seeker");
 
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -31,6 +33,7 @@ export default function SignUpPage() {
                 email,
                 password,
                 name,
+                role,
                 // callbackURL: "/dashboard",
             });
 
@@ -41,8 +44,8 @@ export default function SignUpPage() {
                 setName("");
                 setEmail("");
                 setPassword("");
-                
-                router.push("/auth/signin"); 
+
+                router.push("/auth/signin");
             }
         } catch (err) {
             setErrorMessage("An unexpected network error occurred.");
@@ -130,6 +133,28 @@ export default function SignUpPage() {
                             </InputGroup.Suffix>
                         </InputGroup>
                     </TextField>
+
+                    <div className="flex flex-col gap-4">
+                        <Label>User Role</Label>
+                        <RadioGroup defaultValue="Seeker" name="role" onChange={value => setRole(value)} orientation="horizontal">
+                            <Radio value="Seeker">
+                                <Radio.Content>
+                                    <Radio.Control>
+                                        <Radio.Indicator />
+                                    </Radio.Control>
+                                    Job Seeker
+                                </Radio.Content>
+                            </Radio>
+                            <Radio value="Recruiter">
+                                <Radio.Content>
+                                    <Radio.Control>
+                                        <Radio.Indicator />
+                                    </Radio.Control>
+                                    Recruiter
+                                </Radio.Content>
+                            </Radio>
+                        </RadioGroup>
+                    </div>
 
                     {/* Error Message */}
                     {errorMessage && (

@@ -77,7 +77,7 @@ export default function Navbar() {
               }
               <Button
                 as={Link}
-                href="/register"
+                href="/register" r
                 radius="lg"
                 variant="solid"
                 className="bg-linear-to-r from-[#6366f1] to-[#4f46e5] font-semibold text-white shadow-lg shadow-indigo-500/20 hover:opacity-90 px-5"
